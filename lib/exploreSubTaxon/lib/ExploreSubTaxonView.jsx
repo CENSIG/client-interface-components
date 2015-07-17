@@ -32,7 +32,9 @@ class ExploreSubTaxonView extends React.Component
 			);
 		});
 
-		return childs.size !== 0 ? <ul>{childs}</ul> : <p>Il n'y a pas de fils observés</p>;
+		return childs.size !== 0 
+			? <ul style={style.taxonViewUl}>{childs}</ul> 
+			: <p>Il n'y a pas de fils observés</p>;
 	}
 
 	render () {
