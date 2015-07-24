@@ -45,7 +45,7 @@ class BrothersNavigation extends React.Component
 				</nav>
 			);
 		}
-		return null;
+		return <p>Aucun frère observé n'a été trouvé</p>
 	}
 }
 
