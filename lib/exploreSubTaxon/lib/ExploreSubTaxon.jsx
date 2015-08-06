@@ -31,10 +31,8 @@ class ExploreSubTaxon extends React.Component
 
 	getChildContext() {
 		return {
-			firstChilds: this.props.firstChilds,
-			parents: this.props.parents,
-			subTaxonViewCallback: this._handleSubTaxonViewClick.bind(this),
-			arianeCallback: this._handleArianeCallback.bind(this)
+			subTaxonViewCallback: (this.props.actionClickSub) ? this._handleSubTaxonViewClick.bind(this) : null,
+			arianeCallback: (this.props.actionClickSup) ? this._handleArianeCallback.bind(this) : null
 		}	
 	}
 
@@ -57,12 +55,6 @@ class ExploreSubTaxon extends React.Component
 		var target = e.target;
 		var taxonSupString = target.parentNode.children[0].textContent;
 		var cdnom = target.getAttribute("data-cdnom");
-		/*this.context.executeAction(ExploreSubTaxonAction.exploreSubTaxon, {
-			api: this.context.api,
-			event: "sub",
-			name: taxonSupString,
-			cdnom: cdnom
-		});*/
 	  this.props.actionClickSub(taxonSupString, cdnom);
 	}
 
@@ -71,12 +63,6 @@ class ExploreSubTaxon extends React.Component
 		var target = e.target;
 		var taxonSupString = e.target.textContent;
 		var cdnom = target.parentNode.getAttribute("data-cdnom") || target.getAttribute("data-cdnom");
-		/*this.context.executeAction(ExploreSubTaxonAction.exploreSubTaxon, {
-			api: this.context.api,
-			event:"sup",
-			name: taxonSupString,
-			cdnom: cdnom
-		});*/
 	  this.props.actionClickSup(taxonSupString, cdnom);
 	}
 
@@ -111,7 +97,6 @@ class ExploreSubTaxon extends React.Component
 	}
 
 	render() {
-		console.log(this.props.styleButton);
 		return (
 			<div ref="explore" 
 				onMouseDown={this._handleMouseDown}
@@ -124,23 +109,33 @@ class ExploreSubTaxon extends React.Component
 				<ExploreSubTaxonView 
 					style={this.props.styleView}
 					displaying={this.state.displaying} 
+					firstChilds={this.props.firstChilds}
+					parents={this.props.parents}
+					withCompose={this.props.withCompose}
 				/>
 			</div>
 		);
 	}
 }
+ExploreSubTaxonView.propTypes = {
+	firstChilds: React.PropTypes.object.isRequired,
+	parents: React.PropTypes.object.isRequired,
+	actionClickSup: React.PropTypes.func,
+	actionClickSub: React.PropTypes.func,
+	withCompose: React.PropTypes.object
+},
+
 ExploreSubTaxon.defaultProps = {
+	withCompose: null,
 	buttonMaterial : false,
 	styleButton    : style.button,
 	styleView      : style.taxonView
 };
 
 ExploreSubTaxon.childContextTypes = {
-	firstChilds: React.PropTypes.object,
-	parents: React.PropTypes.object,
 	subTaxonViewCallback: React.PropTypes.func,
 	arianeCallback: React.PropTypes.func
-}
+};
 
 ExploreSubTaxon = Radium(ExploreSubTaxon);
 
