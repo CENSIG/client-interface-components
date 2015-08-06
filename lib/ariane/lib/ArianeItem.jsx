@@ -1,6 +1,6 @@
 import React from "react";
 import Radium from "radium";
-import {NavLink} from "fluxible-router";
+//import {NavLink} from "fluxible-router";
 import {arrow} from "../style";
 
 /**
@@ -48,12 +48,14 @@ class ArianeItem extends React.Component
 	 */
 	_withLink() {
 		return (
-			<NavLink routeName={this.props.route} navParams={this.props.navParams}>
+			//<NavLink routeName={this.props.route} navParams={this.props.navParams}>
+			<div>
 				<span className="ariane-item">
 					{this._isLast()}
 				</span>
 				<span style={arrow}></span>
-			</NavLink>
+			</div>
+			//</NavLink>
 		);
 	}
 
@@ -65,8 +67,6 @@ class ArianeItem extends React.Component
 	}
 }
 
-// For execute special callBack 
-// from ExploreSubTaxon component for example
 ArianeItem.contextTypes = {
 	arianeCallback: React.PropTypes.func
 }
