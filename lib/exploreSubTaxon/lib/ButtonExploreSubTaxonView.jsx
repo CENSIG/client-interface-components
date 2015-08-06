@@ -11,9 +11,11 @@ class ButtonExploreSubTaxonView extends React.Component
 	}
 
 	render() {
+		let {cdnom, children} = this.props;
+
 		return (
-			<span data-cdnom={this.props.cdnom} 
-				onClick={this.context.subTaxonViewCallback}>Explorer les fils</span>);
+			<span data-cdnom={cdnom} 
+				onClick={this.context.subTaxonViewCallback}>{children}</span>);
 	}
 }
 
