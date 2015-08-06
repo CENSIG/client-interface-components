@@ -1,7 +1,7 @@
 import React from "react";
-import {NavLink} from "fluxible-router";
 
 import style from "../style";
+
 /**
  * A component which represent item of brothers
  * navigation
@@ -17,38 +17,30 @@ class ItemBrothersNavigation extends React.Component
 		return nextProps.children !== this.props.children;	
 	}
 
-	_right() {
-		return (
-			<NavLink routeName="taxon" 
-				navParams={{name: this.context.atlasUriName, cdnom: this.props.cdnom}}>
-					<span>{this.props.children}</span>
-					<span style={this.props.style}></span>
-			</NavLink>
-		);
-	}
+	_item(props) {
+		let after = props.right 
+			? <span style={props.ArrowStyle}></span>
+			: <span>{props.children}</span>;
 
-	_left() {
+		let before = props.right
+			? <span>{props.children}</span>
+			: <span style={props.ArrowStyle}></span>;
+
 		return (
-			<NavLink routeName="taxon" 
-				navParams={{name: this.context.atlasUriName, cdnom: this.props.cdnom}}>
-					<span style={this.props.style}></span>
-					<span>{this.props.children}</span>
-			</NavLink>
+			<div>
+				{before}
+				{after}
+			</div>
 		);	
 	}
 
 	render() {
-		var item = (this.props.right) ? this._right() : this._left();
 		return (
-			<li style={style.item}>
-				{item}
+			<li style={style.liStyle}>
+				{this._item(this.props)}
 			</li>
 		)	
 	}
-}
-
-ItemBrothersNavigation.contextTypes = {
-	atlasUriName: React.PropTypes.string
 }
 
 export default ItemBrothersNavigation;
