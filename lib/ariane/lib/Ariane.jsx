@@ -17,6 +17,12 @@ class Ariane extends React.Component
 		return nextProps.parents !== this.props.parents;	
 	}
 
+	getChildContext() {
+		return {
+			arianeCallback: this.props.arianeCallback	
+		}	
+	}
+
 	_createItems() {
 		var n            = this.props.parents.size;
 		var atlasUriName = this.context.atlasUriName;
@@ -64,9 +70,19 @@ class Ariane extends React.Component
 	}
 }
 
+Ariane.propTypes = {
+	parents: React.PropTypes.object.isRequired,
+	arianeCallback: React.PropTypes.func
+};
+
 Ariane.defaultProps = {
+	arianeCallback: null,
 	style: base
-}
+};
+
+Ariane.childContextTypes = {
+	arianeCallback: React.PropTypes.func
+};
 
 Ariane.contextTypes = {
 	atlasUriName: React.PropTypes.string
