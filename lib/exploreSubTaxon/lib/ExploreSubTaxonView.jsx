@@ -1,8 +1,8 @@
 import React from "react";
 import Radium from "radium";
-import {NavLink} from "fluxible-router";
 import {Ariane} from "../../ariane";
 import ButtonExploreSubTaxonView from "./ButtonExploreSubTaxonView";
+import composeExplorerChildsView from "./composeExplorerChildsView";
 
 import style from "../style";
 
@@ -16,21 +16,40 @@ class ExploreSubTaxonView extends React.Component
 		super(props);	
 	}
 
-	_getFirstChilds() {
-		var childs = this.context.firstChilds.map((child, i) => {
-			var navParams = {
-				name: this.context.atlasUriName,
-				cdnom: child.get("cdnom")
-			};
+	_getDefaultFirstChilds() {
+		return this.props.firstChilds.map((child, i) => {
 			return (
 				<li key={i}>
-					<NavLink routeName="taxon" navParams={navParams}>
-						{child.get("name")}
-					</NavLink>
-					<ButtonExploreSubTaxonView cdnom={navParams.cdnom}/>
+					<span>{child.get("name")}</span>
+					<ButtonExploreSubTaxonView cdnom={child.get("cdnom")}>
+						Voir les taxons inférieurs
+					</ButtonExploreSubTaxonView>
 				</li>
 			);
 		});
+	}
+
+	_getComposeFirstChilds(compose) {
+		let Compose = composeExplorerChildsView(compose);
+		return this.props.firstChilds.map((child, i) => {
+			return (
+				<Compose key={i} 
+					name={child.get("name")} 
+					cdnom={child.get("cdnom")}
+					rang={child.get("rang")}
+				/>
+			);	
+		});		
+	}
+
+	_getFirstChilds(compose) {
+		let childs;	
+
+		if (compose === null) {
+			childs = this._getDefaultFirstChilds();		
+		} else {
+			childs = this._getComposeFirstChilds(compose);	
+		}
 
 		return childs.size !== 0 
 			? <ul style={style.taxonViewUl}>{childs}</ul> 
@@ -38,24 +57,23 @@ class ExploreSubTaxonView extends React.Component
 	}
 
 	render () {
-		var styleTaxonView = this.props.style;
+		let props = this.props;
+		let styleTaxonView = props.style;
 
-		if (!this.props.displaying) {
+		if (!props.displaying) {
 			styleTaxonView = style.taxonViewHidden;
 		} 
 
 		return (
 			<div style={styleTaxonView}>
-				<Ariane	parents={this.context.parents} />
-				{this._getFirstChilds()}
+				<Ariane	parents={props.parents} arianeCallback={this.context.arianeCallback}/>
+				{this._getFirstChilds(props.withCompose)}
 			</div>	
 		)
 	}
 }
 
 ExploreSubTaxonView.contextTypes = {
-	firstChilds: React.PropTypes.object,
-	parents: React.PropTypes.object,
 	atlasUriName: React.PropTypes.string
 }
 
