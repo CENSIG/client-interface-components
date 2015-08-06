@@ -2,6 +2,7 @@ import React from "react";
 import Radium from "radium";
 import ItemBrothersNavigation from "./ItemBrothersNavigation";
 
+import composeItemBrothers from "./composeItemBrothers";
 import style from "../style";
 
 /**
@@ -18,36 +19,74 @@ class BrothersNavigation extends React.Component
 		return nextProps.brothers !== this.props.brothers;	
 	}
 
-	render() {
-		var leftBrother, rightBrother;
+	_renderWithCompose(items) {
+		let Compose = composeItemBrothers(this.props.withCompose);
+		return items.map((item, idx) => {
+			return <Compose key={idx} {...item} />
+		});
+	}
 
-		if (this.props.brothers.size !== 0) {
-			leftBrother   = this.props.brothers.get(this.props.left);
-			rightBrother  = this.props.brothers.get(this.props.right);
+	_renderDefault(items) {
+		return items.map((item, idx) => {
+			return <ItemBrothersNavigation key={idx} {...item} />	
+		});
+	}
+
+	render() {
+		let leftBrother, rightBrother;
+		let {brothers, withCompose, ...props} = this.props;
+
+		if (brothers.size !== 0) {
+			leftBrother   = brothers.get(props.left);
+			rightBrother  = brothers.get(props.right);
+
+			let items = [
+				{
+					right: false, 
+					ArrowStyle: props.leftStyle, 
+					liStyle: props.liStyleLeft,	
+					cdnom: leftBrother.get("cdnom"), 
+					children: leftBrother.get("name")
+				},
+				{
+					right: true, 
+					ArrowStyle: props.rightStyle, 
+					liStyle: props.liStyleRight,
+					cdnom: rightBrother.get("cdnom"), 
+					children: rightBrother.get("name")
+				}
+			]
+
+			let render = (withCompose === null)
+				? this._renderDefault(items)
+				: this._renderWithCompose(items);
 
 			return (
-				<nav>
-					<ul style={style.ul}>
-						<ItemBrothersNavigation 
-							right={false}
-							style={style.left}
-							cdnom={leftBrother.get("cdnom")}>
-							{leftBrother.get("name")}
-						</ItemBrothersNavigation>
-
-						<ItemBrothersNavigation 
-							right={true}
-							style={style.right}
-							cdnom={rightBrother.get("cdnom")}>
-							{rightBrother.get("name")}
-						</ItemBrothersNavigation>
+				<nav style={props.navStyle}>
+					<ul style={props.ulStyle}>
+						{render}
 					</ul>
 				</nav>
 			);
 		}
+
 		return <p>Aucun frère observé n'a été trouvé</p>
 	}
 }
+
+BrothersNavigation.propTypes = {
+	brothers: React.PropTypes.object.isRequired
+}
+
+BrothersNavigation.defaultProps = {
+	navStyle: {},
+	ulStyle: style.ul,
+	liStyleLeft: style.li,
+	liStyleRight: style.li,
+	leftStyle: style.left,
+	rightStyle: style.right,
+	withCompose: null
+};
 
 BrothersNavigation = Radium(BrothersNavigation);
 
