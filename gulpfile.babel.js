@@ -1,17 +1,14 @@
 import gulp from "gulp";
-import webpack from "webpack";
+import webpackStream from "webpack-stream";
 import webpackConfig from "./webpack.config";
 
 const DEV = "dev";
 const WEBPACK_DEV = "webpack:dev";
 
 gulp.task(WEBPACK_DEV, () => {
-	webpack(webpackConfig);
+	return gulp.src("public/js/index.jsx")
+		.pipe(webpackStream(webpackConfig))
+		.pipe(gulp.dest("public/dist/"))
 });
 
-gulp.task(DEV, () => {
-	gulp.watch([
-		"lib/**/*",
-		"public/js/index.jsx",
-	], [ WEBPACK_DEV ]);
-});
+gulp.task(DEV, [ WEBPACK_DEV ]);
