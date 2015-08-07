@@ -32,7 +32,8 @@ class Explorer extends React.Component
 	getChildContext() {
 		return {
 			subTaxonViewCallback: (this.props.actionClickSub) ? this._handleSubTaxonViewClick.bind(this) : null,
-			arianeCallback: (this.props.actionClickSup) ? this._handleArianeCallback.bind(this) : null
+			arianeCallback: (this.props.actionClickSup) ? this._handleArianeCallback.bind(this) : null,
+			styleButtonExplorerView: this.props.styleButtonExplorerView
 		}	
 	}
 
@@ -132,18 +133,20 @@ Explorer.propTypes = {
 },
 
 Explorer.defaultProps = {
-	withCompose      : null,
-	buttonMaterial   : false,
-	styleButton      : style.button,
-	styleView        : style.taxonView,
-	styleViewUl      : style.taxonViewUl,
-	styleViewLi      : style.taxonViewLi,
-	styleViewLiFirst : style.taxonViewLiFirstChild
+	withCompose             : null,
+	buttonMaterial          : false,
+	styleButton             : style.button,
+	styleView               : style.taxonView,
+	styleViewUl             : style.taxonViewUl,
+	styleViewLi             : style.taxonViewLi,
+	styleButtonExplorerView : style.buttonExplorerView,
+	styleViewLiFirst        : style.taxonViewLiFirstChild
 };
 
 Explorer.childContextTypes = {
 	subTaxonViewCallback: React.PropTypes.func,
-	arianeCallback: React.PropTypes.func
+	arianeCallback: React.PropTypes.func,
+	styleButtonExplorerView: React.PropTypes.object
 };
 
 Explorer = Radium(Explorer);
