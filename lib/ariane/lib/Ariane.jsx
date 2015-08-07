@@ -2,6 +2,7 @@ import React from "react";
 import Radium from "radium";
 import ArianeItem from "./ArianeItem";
 import {base} from "../style";
+import composeArianeItem from "./composeArianeItem";
 
 /**
  * Breadcrumb
@@ -23,45 +24,57 @@ class Ariane extends React.Component
 		}	
 	}
 
-	_createItems() {
-		var n            = this.props.parents.size;
-		var atlasUriName = this.context.atlasUriName;
-		var withLink     = this.props.withLink;
+	_mapItems(item, index, total) {
+		let res;
+		let name = item.get("name");
+		let cdnom = item.get("cdnom");
+		switch (index) {
+			case 0:
+				res = (
+					<ArianeItem key={index} cdnom={cdnom}>
+						{name}
+					</ArianeItem>
+				);
+				break;
+			case total - 1:
+				res = (
+					<ArianeItem key={index} cdnom={cdnom} isLast={true}>
+						{name}
+					</ArianeItem>
+				);
+				break;
+			default:
+				res = (
+					<ArianeItem key={index} cdnom={cdnom}>	
+						{name}
+					</ArianeItem>
+				);
+				break;
+		}
+		return res;
+	}
+
+	_createComposeItems(compose) {
+		let Compose = composeArianeItem(compose);
+		let n = this.props.parents.size;
 		return this.props.parents.map((parent, i) => {
-			var res;
-			var params = {name: atlasUriName, cdnom: parent.get("cdnom")};
-			switch (i) {
-				case 0:
-					res = (
-						<ArianeItem key={i} route="atlas" withLink={withLink}
-							navParams={params}>
-							{parent.get("name")}
-						</ArianeItem>
-					);
-					break;
-				case n - 1:
-					res = (
-						<ArianeItem key={i} route="taxon" isLast={true} withLink={withLink}
-							navParams={params}>
-							{parent.get("name")}
-						</ArianeItem>
-					);
-					break;
-				default:
-					res = (
-						<ArianeItem key={i} route="taxon" withLink={withLink} 
-							navParams={params}>
-							{parent.get("name")}
-						</ArianeItem>
-					);
-					break;
-			}
-			return res; 
+			return <Compose>{this._mapItems(parent, i, n)}</Compose>;
+		});
+	}
+
+	_createDefaultItems() {
+		var n = this.props.parents.size;
+		return this.props.parents.map((parent, i) => {
+			return this._mapItems(parent, i, n);
 		});
 	}
 
 	render() {
-		var items = this._createItems();
+		let {withCompose} = this.props;
+		let items = (withCompose === null) 
+			? this._createDefaultItems()
+			: this._createComposeItems(withCompose);
+
 		return (
 			<div style={base}>
 				{items}	
@@ -72,21 +85,20 @@ class Ariane extends React.Component
 
 Ariane.propTypes = {
 	parents: React.PropTypes.object.isRequired,
-	arianeCallback: React.PropTypes.func
+	arianeCallback: React.PropTypes.func,
+	withCompose: React.PropTypes.object,
+	style: React.PropTypes.object
 };
 
 Ariane.defaultProps = {
 	arianeCallback: null,
-	style: base
+	style: base,
+	withCompose: null
 };
 
 Ariane.childContextTypes = {
 	arianeCallback: React.PropTypes.func
 };
-
-Ariane.contextTypes = {
-	atlasUriName: React.PropTypes.string
-}
 
 Ariane = Radium(Ariane);
 
