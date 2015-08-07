@@ -104,7 +104,8 @@ class Explorer extends React.Component
 				onMouseUp={this._handleMouseUp}
 			>
 				<ButtonExplorer 
-					style={[props.styleButton, props.buttonMaterial && style.buttonMaterial]}
+					styleButton={[props.styleButton, props.buttonMaterial && style.buttonMaterial]}
+					styleInnerButton={[props.buttonMaterial && style.innerButtonMaterial, this.state.displaying && style.innerButtonTransform]}
 					callBackClick={this._handleClickButton.bind(this)}	
 				/>
 				<ExplorerView 
