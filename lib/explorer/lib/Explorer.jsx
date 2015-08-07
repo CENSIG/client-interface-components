@@ -1,7 +1,7 @@
 import React from "react";
 import Radium from "radium";
-import ButtonExploreSubTaxon from "./ButtonExploreSubTaxon";
-import ExploreSubTaxonView from "./ExploreSubTaxonView";
+import ButtonExplorer from "./ButtonExplorer";
+import ExplorerView from "./ExplorerView";
 import style from "../style";
 
 /**
@@ -9,7 +9,7 @@ import style from "../style";
  * for display childs of specific taxon
  * @author Jean BOUDET
  */
-class ExploreSubTaxon extends React.Component
+class Explorer extends React.Component
 {
 	constructor(props) {
 		super(props);	
@@ -97,47 +97,55 @@ class ExploreSubTaxon extends React.Component
 	}
 
 	render() {
+		let props = this.props;
 		return (
 			<div ref="explore" 
 				onMouseDown={this._handleMouseDown}
 				onMouseUp={this._handleMouseUp}
 			>
-				<ButtonExploreSubTaxon 
-					style={[this.props.styleButton, this.props.buttonMaterial && style.buttonMaterial]}
+				<ButtonExplorer 
+					style={[props.styleButton, props.buttonMaterial && style.buttonMaterial]}
 					callBackClick={this._handleClickButton.bind(this)}	
 				/>
-				<ExploreSubTaxonView 
-					style={this.props.styleView}
+				<ExplorerView 
+					styleView={props.styleView}
+					styleViewUl={props.styleViewUl}
+					styleViewLi={props.styleViewLi}
+					styleViewLiFirst={props.styleViewLiFirst}
 					displaying={this.state.displaying} 
-					firstChilds={this.props.firstChilds}
-					parents={this.props.parents}
-					withCompose={this.props.withCompose}
+					firstChilds={props.firstChilds}
+					parents={props.parents}
+					withCompose={props.withCompose}
 				/>
 			</div>
 		);
 	}
 }
-ExploreSubTaxonView.propTypes = {
+
+Explorer.propTypes = {
 	firstChilds: React.PropTypes.object.isRequired,
 	parents: React.PropTypes.object.isRequired,
 	actionClickSup: React.PropTypes.func,
 	actionClickSub: React.PropTypes.func,
-	withCompose: React.PropTypes.object
+	withCompose: React.PropTypes.func
 },
 
-ExploreSubTaxon.defaultProps = {
-	withCompose: null,
-	buttonMaterial : false,
-	styleButton    : style.button,
-	styleView      : style.taxonView
+Explorer.defaultProps = {
+	withCompose      : null,
+	buttonMaterial   : false,
+	styleButton      : style.button,
+	styleView        : style.taxonView,
+	styleViewUl      : style.taxonViewUl,
+	styleViewLi      : style.taxonViewLi,
+	styleViewLiFirst : style.taxonViewLiFirstChild
 };
 
-ExploreSubTaxon.childContextTypes = {
+Explorer.childContextTypes = {
 	subTaxonViewCallback: React.PropTypes.func,
 	arianeCallback: React.PropTypes.func
 };
 
-ExploreSubTaxon = Radium(ExploreSubTaxon);
+Explorer = Radium(Explorer);
 
-export default ExploreSubTaxon;
+export default Explorer;
 

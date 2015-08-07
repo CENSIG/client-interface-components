@@ -10,10 +10,15 @@ export default function composeExplorerChildsView(Component) {
 			let props = this.props;
 
 			return (
-				<Component name={props.name} cdnom={props.cdnom} /> 
+				<Component 
+					name={props.name} 
+					cdnom={props.cdnom} 
+					styleViewLi={props.styleViewLi}
+					styleViewLiFirst={props.styleViewLiFirst}
+					rang={props.rang}
+				/> 
 			);	
 		}
 	}
-
 	return Compose;
 };

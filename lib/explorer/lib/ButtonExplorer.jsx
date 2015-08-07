@@ -5,7 +5,7 @@ import Radium from "radium";
  * Button explore. Display list of taxon childs
  * @author Jean BOUDET
  */
-class ButtonExploreSubTaxon extends React.Component
+class ButtonExplorer extends React.Component
 {
 	constructor(props) {
 		super(props);	
@@ -18,6 +18,6 @@ class ButtonExploreSubTaxon extends React.Component
 	}
 }
 
-ButtonExploreSubTaxon = Radium(ButtonExploreSubTaxon);
+ButtonExplorer = Radium(ButtonExplorer);
 
-export default ButtonExploreSubTaxon;
+export default ButtonExplorer;

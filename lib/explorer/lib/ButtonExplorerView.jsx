@@ -4,7 +4,7 @@ import React from "react";
  * Button explore sub taxon.
  * @author Jean BOUDET
  */
-class ButtonExploreSubTaxonView extends React.Component
+class ButtonExplorerView extends React.Component
 {
 	constructor(props) {
 		super(props);	
@@ -19,8 +19,8 @@ class ButtonExploreSubTaxonView extends React.Component
 	}
 }
 
-ButtonExploreSubTaxonView.contextTypes = {
+ButtonExplorerView.contextTypes = {
 	subTaxonViewCallback: React.PropTypes.func
 }
 
-export default ButtonExploreSubTaxonView;
+export default ButtonExplorerView;

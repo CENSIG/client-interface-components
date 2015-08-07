@@ -1,7 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import {Ariane} from "../../ariane";
-import ButtonExploreSubTaxonView from "./ButtonExploreSubTaxonView";
+import ButtonExplorerView from "./ButtonExplorerView";
 import composeExplorerChildsView from "./composeExplorerChildsView";
 
 import style from "../style";
@@ -10,33 +10,37 @@ import style from "../style";
  * List childs of specific taxon
  * @author Jean BOUDET
  */
-class ExploreSubTaxonView extends React.Component
+class ExplorerView extends React.Component
 {
 	constructor(props) {
 		super(props);	
 	}
 
 	_getDefaultFirstChilds() {
-		return this.props.firstChilds.map((child, i) => {
+		let props = this.props;
+		return props.firstChilds.map((child, i) => {
 			return (
-				<li key={i}>
-					<span>{child.get("name")}</span>
-					<ButtonExploreSubTaxonView cdnom={child.get("cdnom")}>
+				<li key={i} style={props.styleViewLi}>
+					<span style={props.styleViewLiFirst}>{child.get("name")}</span>
+					<ButtonExplorerView cdnom={child.get("cdnom")}>
 						Voir les taxons inférieurs
-					</ButtonExploreSubTaxonView>
+					</ButtonExplorerView>
 				</li>
 			);
 		});
 	}
 
 	_getComposeFirstChilds(compose) {
+		let props = this.props;
 		let Compose = composeExplorerChildsView(compose);
-		return this.props.firstChilds.map((child, i) => {
+		return props.firstChilds.map((child, i) => {
 			return (
 				<Compose key={i} 
 					name={child.get("name")} 
 					cdnom={child.get("cdnom")}
 					rang={child.get("rang")}
+					styleViewLi={props.styleViewLi}
+					styleViewLiFirst={props.styleViewLiFirst}
 				/>
 			);	
 		});		
@@ -52,20 +56,20 @@ class ExploreSubTaxonView extends React.Component
 		}
 
 		return childs.size !== 0 
-			? <ul style={style.taxonViewUl}>{childs}</ul> 
+			? <ul style={this.props.styleViewUl}>{childs}</ul> 
 			: <p>Il n'y a pas de fils observés</p>;
 	}
 
 	render () {
 		let props = this.props;
-		let styleTaxonView = props.style;
+		let styleView = props.styleView;
 
 		if (!props.displaying) {
-			styleTaxonView = style.taxonViewHidden;
+			styleView = style.taxonViewHidden;
 		} 
 
 		return (
-			<div style={styleTaxonView}>
+			<div style={styleView}>
 				<Ariane	parents={props.parents} arianeCallback={this.context.arianeCallback}/>
 				{this._getFirstChilds(props.withCompose)}
 			</div>	
@@ -73,10 +77,11 @@ class ExploreSubTaxonView extends React.Component
 	}
 }
 
-ExploreSubTaxonView.contextTypes = {
+ExplorerView.contextTypes = {
+	arianeCallback: React.PropTypes.func,
 	atlasUriName: React.PropTypes.string
 }
 
-ExploreSubTaxonView = Radium(ExploreSubTaxonView);
+ExplorerView = Radium(ExplorerView);
 
-export default ExploreSubTaxonView;
+export default ExplorerView;
