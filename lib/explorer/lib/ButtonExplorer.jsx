@@ -12,8 +12,11 @@ class ButtonExplorer extends React.Component
 	}
 
 	render () {
+		let props = this.props;
 		return (
-			<span style={this.props.style} onClick={this.props.callBackClick}>Explorer</span>	
+			<span style={props.styleButton} onClick={props.callBackClick}>
+				<span style={props.styleInnerButton}>Explorer</span>	
+			</span>
 		);
 	}
 }
