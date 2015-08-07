@@ -14,13 +14,19 @@ class ButtonExplorerView extends React.Component
 		let {cdnom, children} = this.props;
 
 		return (
-			<span data-cdnom={cdnom} 
-				onClick={this.context.subTaxonViewCallback}>{children}</span>);
+			<span 
+				style={this.context.styleButtonExplorerView}
+				data-cdnom={cdnom} 
+				onClick={this.context.subTaxonViewCallback}
+			>
+				{children}
+			</span>);
 	}
 }
 
 ButtonExplorerView.contextTypes = {
-	subTaxonViewCallback: React.PropTypes.func
+	subTaxonViewCallback: React.PropTypes.func,
+	styleButtonExplorerView: React.PropTypes.object
 }
 
 export default ButtonExplorerView;
