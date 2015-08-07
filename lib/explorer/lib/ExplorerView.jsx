@@ -78,8 +78,7 @@ class ExplorerView extends React.Component
 }
 
 ExplorerView.contextTypes = {
-	arianeCallback: React.PropTypes.func,
-	atlasUriName: React.PropTypes.string
+	arianeCallback: React.PropTypes.func
 }
 
 ExplorerView = Radium(ExplorerView);
