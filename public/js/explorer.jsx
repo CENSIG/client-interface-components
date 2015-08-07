@@ -8,7 +8,6 @@ import {dataExplorerComponents, dataParentsComponents} from "../../tests/data";
 
 export default function run() {
 	
-
 	React.render(
 		<Explorer 
 			firstChilds={Immutable.List()}
@@ -51,5 +50,15 @@ export default function run() {
 			actionClickSub={actionClickSub}
 		/>,
 		document.getElementById("explorerComposeCallBack")
+	);
+
+	React.render(
+		<Explorer	
+			firstChilds={Immutable.fromJS(dataExplorerComponents)}
+			parents={Immutable.fromJS(dataParentsComponents)}
+			withCompose={MyExplorerView}
+			buttonMaterial={true}
+		/>,
+		document.getElementById("explorerMaterial")
 	);
 }
