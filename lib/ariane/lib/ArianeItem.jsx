@@ -1,6 +1,5 @@
 import React from "react";
 import Radium from "radium";
-//import {NavLink} from "fluxible-router";
 import {arrow} from "../style";
 
 /**
@@ -11,10 +10,6 @@ class ArianeItem extends React.Component
 {
 	constructor(props) {
 		super(props);	
-		this.defaultProps = {
-			withLink: false,
-			isLast: false
-		}
 	}
 
 	/*shouldComponentUpdate(nextProps) {
@@ -26,50 +21,37 @@ class ArianeItem extends React.Component
 	 * If last return strong element
 	 */
 	_isLast() {
-		return (this.props.isLast) 
-			? <strong>{this.props.children}</strong>
-			: this.props.children;
+		let props = this.props;
+		return (props.isLast) 
+			? <strong>{props.children}</strong>
+			: props.children;
 	}
 
 	/**
-	 * Item with no link (a element)
+	 * Create item 
 	 */
-	_withNoLink() {
+	_createItem() {
+		let props = this.props;
 		return (
-			<span data-cdnom={this.props.navParams.cdnom} className="pointer ariane-item" onClick={this.context.arianeCallback}>
+			<span data-cdnom={props.cdnom} onClick={this.context.arianeCallback}>
 				<span>{this._isLast()}</span>
 				<span style={arrow}></span>
 			</span>
 		);
 	}
 
-	/**
-	 * Item with link (a element)
-	 */
-	_withLink() {
-		return (
-			//<NavLink routeName={this.props.route} navParams={this.props.navParams}>
-			<div>
-				<span className="ariane-item">
-					{this._isLast()}
-				</span>
-				<span style={arrow}></span>
-			</div>
-			//</NavLink>
-		);
-	}
-
 	render() {
-		if (this.props.withLink) {
-			return this._withLink();
-		}
-		return this._withNoLink();
+		return this._createItem();
 	}
 }
+
+ArianeItem.defaultProps = {
+	isLast: false
+};
 
 ArianeItem.contextTypes = {
 	arianeCallback: React.PropTypes.func
-}
+};
 
 ArianeItem = Radium(ArianeItem);
 
