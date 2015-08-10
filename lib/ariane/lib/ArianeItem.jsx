@@ -12,9 +12,9 @@ class ArianeItem extends React.Component
 		super(props);	
 	}
 
-	/*shouldComponentUpdate(nextProps) {
+	shouldComponentUpdate(nextProps) {
 		return nextProps.children !== this.props.children;	
-	}*/
+	}
 
 	/**
 	 * Is last item ?
