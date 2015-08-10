@@ -15,6 +15,10 @@ class SearchResult extends React.Component
 		super(props);	
 	}
 
+	shouldComponentUpdate(nextProps) {
+		return this.props !== nextProps;	
+	}
+
 	render() {
 		var results = this.props.results;
 		var notResults = this.props.notResults;
@@ -25,7 +29,7 @@ class SearchResult extends React.Component
 			});
 			res = (
 				<ul style={this.context.ulResults}>
-					<HeaderSearchResult />
+					<HeaderSearchResult header={this.props.header}/>
 					{items}
 				</ul>
 			);
