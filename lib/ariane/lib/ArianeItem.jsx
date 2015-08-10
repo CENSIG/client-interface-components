@@ -12,10 +12,6 @@ class ArianeItem extends React.Component
 		super(props);	
 	}
 
-	shouldComponentUpdate(nextProps) {
-		return nextProps.children !== this.props.children;	
-	}
-
 	/**
 	 * Is last item ?
 	 * If last return strong element
