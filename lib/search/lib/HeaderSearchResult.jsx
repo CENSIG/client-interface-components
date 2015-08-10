@@ -16,8 +16,13 @@ class HeaderSearchResult extends React.Component
 		return (
 			<li style={this.context.liResultsItem}>
 				<ul style={this.context.ulResultsItemContent}>
-					<li style={this.context.liResultsItemContentItem}>Taxon référent</li>
-					<li style={this.context.liResultsItemContentItem}>Nom</li>
+					{this.props.header.map(value => {
+						return (
+							<li style={this.context.liResultsItemContentItem}>
+								{value}	
+							</li>
+						);
+					})}
 				</ul>
 			</li>
 		)	
