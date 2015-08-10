@@ -58,7 +58,15 @@ class Ariane extends React.Component
 		let Compose = composeArianeItem(compose);
 		let n = this.props.parents.size;
 		return this.props.parents.map((parent, i) => {
-			return <Compose key={i}>{this._mapItems(parent, i, n)}</Compose>;
+			return (
+				<Compose 
+					key={i} 
+					id={parent.get("cdnom")} 
+					position={i}
+				>
+					{this._mapItems(parent, i, n)}
+				</Compose>
+			);
 		});
 	}
 
