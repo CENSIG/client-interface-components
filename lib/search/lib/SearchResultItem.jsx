@@ -1,8 +1,6 @@
 import React from "react";
 import SearchResultItemContent from "./SearchResultItemContent";
-import {NavLink}				 from "fluxible-router";
-
-import style from "../style";
+import composeResultItemContent from "./composeResultItemContent";
 
 /**
  * Class which represent an result item
@@ -18,24 +16,46 @@ class SearchResultItem extends React.Component
 		return nextProps.content.get("cdnom") !== this.props.content.get("cdnom");
 	}
 
-	render() {
+	_renderWithCompose(compose) {
+		let Compose = composeResultItemContent(compose);
+		let props = this.props;
+		let context = this.context;
 		return (
-			<li style={this.context.liResultsItem}>
-				<NavLink routeName="taxon" navParams={
-					{ name: this.context.atlasUriName, cdnom: this.props.content.get("cdref") }
-				}>
-					<SearchResultItemContent>
-						{this.props.content}
-					</SearchResultItemContent>
-				</NavLink>
+			<Compose 
+				styleUl={context.ulResultsItemContent}	
+				styleLi={context.liResultsItemContentItem}
+			>
+				{props.content}
+			</Compose>
+		);
+	}
+
+	_renderDefault() {
+		return (
+			<SearchResultItemContent>
+				{this.props.content}
+			</SearchResultItemContent>
+		);	
+	}
+
+	render() {
+		let context = this.context;
+		let res = context.withCompose === null
+			? this._renderDefault()
+			: this._renderWithCompose(context.withCompose);
+		return (
+			<li style={context.liResultsItem}>
+				{res}
 			</li>
 		);
 	}
 }
 
 SearchResultItem.contextTypes = {
-	atlasUriName: React.PropTypes.string,
-	liResultsItem: React.PropTypes.object
+	withCompose              : React.PropTypes.func,
+	ulResultsItemContent     : React.PropTypes.object,
+	liResultsItemContentItem : React.PropTypes.object,
+	liResultsItem            : React.PropTypes.object
 }
 
 export default SearchResultItem;
