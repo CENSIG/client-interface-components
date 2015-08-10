@@ -10,7 +10,10 @@ export default function composeArianeItem(Component) {
 		render() {
 			let props = this.props;
 			return (
-				<Component>
+				<Component 
+					position={props.position}
+					id={props.id}
+				>
 					{props.children}
 				</Component>
 			);	
