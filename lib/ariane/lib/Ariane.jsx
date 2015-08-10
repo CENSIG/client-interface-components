@@ -58,7 +58,7 @@ class Ariane extends React.Component
 		let Compose = composeArianeItem(compose);
 		let n = this.props.parents.size;
 		return this.props.parents.map((parent, i) => {
-			return <Compose>{this._mapItems(parent, i, n)}</Compose>;
+			return <Compose key={i}>{this._mapItems(parent, i, n)}</Compose>;
 		});
 	}
 
@@ -86,7 +86,7 @@ class Ariane extends React.Component
 Ariane.propTypes = {
 	parents: React.PropTypes.object.isRequired,
 	arianeCallback: React.PropTypes.func,
-	withCompose: React.PropTypes.object,
+	withCompose: React.PropTypes.func,
 	style: React.PropTypes.object
 };
 
