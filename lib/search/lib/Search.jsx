@@ -22,62 +22,69 @@ class Search extends React.Component
 	}
 
 	getChildContext() {
-		let divInputStyle = (this.props.backDropShow)
+		let props = this.props;
+
+		let divInputStyle = (props.backDropShow)
 			? style.divInputActive
-			: this.props.divInput;
+			: props.divInput;
 
 		return {
-			backDropShow             : this.props.backDropShow,
+			withCompose              : props.withCompose,
+			backDropShow             : props.backDropShow,
 			divInput                 : divInputStyle,
-			input                    : this.props.input,
-			ulResults                : this.props.ulResults,
-			liResultsItem            : this.props.liResultsItem,
-			ulResultsItemContent     : this.props.ulResultsItemContent,
-			liResultsItemContentItem : this.props.liResultsItemContentItem
+			input                    : props.input,
+			ulResults                : props.ulResults,
+			liResultsItem            : props.liResultsItem,
+			ulResultsItemContent     : props.ulResultsItemContent,
+			liResultsItemContentItem : props.liResultsItemContentItem
 		};	
 	}
 
 	_handleKeyUp(e) {
-		var q = e.target.value;
+		let props = this.props;
+		let q = e.target.value;
 		if (q.length > 3) {
-			if (this.props.pendingRequest) {
-				this.props.actionAbort(this.props.pendingRequest); 
+			if (props.pendingRequest) {
+				props.actionAbort(props.pendingRequest); 
 			}
-			var cdnom = this.props.parentsCdnom; 
-			this.props.actionSearch(q, cdnom);
+			props.actionSearch(q);
 		}
 
 		if (q.length == 0) {
-			this.props.actionReset();
+			props.actionReset();
 		}
 	}
 
 	render() {
-		let placeholder = "Recherchez un taxon spécifique dans les "+this.props.label;
+		let props = this.props;
+
+		let placeholder = "Recherchez un taxon"
 		let search = (
-			<div style={this.props.backDropShow ? style.divBase : null}>
+			<div style={props.backDropShow ? style.divBase : null}>
 				<SearchInput 
 					placeholder={placeholder} 
 					_onKeyUp={this._handleKeyUp.bind(this)} 
-					_onFocus={this.props._onFocus}
-					_onBlur={this.props._onBlur}
+					_onFocus={props._onFocus}
+					_onBlur={props._onBlur}
 				/>
 				<SearchResult 
-					results={this.props.results} 
-					notResults={this.props.notResults}
+					header={props.header}
+					results={props.results} 
+					notResults={props.notResults}
 				/>
 			</div>
 		);
-		return (this.props.withBackdrop)
+		return (props.withBackdrop)
 			? this._renderWithBackdrop(search)
 			: search;
 	}
 
 	_renderWithBackdrop(search) {
+		let props = this.props;
 		return (
 			<div>
 				<div 
-					style={this.props.backDropShow ? style.backDrop : style.backDropHidden}
+					style={props.backDropShow ? style.backDrop : style.backDropHidden}
 				></div>
 				{search}
 			</div>
@@ -85,7 +92,28 @@ class Search extends React.Component
 	}
 }
 
+Search.propTypes = {
+	results                  : React.PropTypes.object.isRequired,
+	notResults               : React.PropTypes.string.isRequired,
+	header                   : React.PropTypes.array.isRequired,
+	actionSearch             : React.PropTypes.func.isRequired,
+	actionReset              : React.PropTypes.func.isRequired,
+	actionAbort              : React.PropTypes.func,
+	_onFocus                 : React.PropTypes.func,
+	_onBlur                  : React.PropTypes.func,
+	withBackdrop             : React.PropTypes.bool,
+	withCompose              : React.PropTypes.func,
+	backDropShow             : React.PropTypes.bool,
+	divInput                 : React.PropTypes.object,
+	input                    : React.PropTypes.object,
+	ulResults                : React.PropTypes.object,
+	liResultsItem            : React.PropTypes.object,
+	ulResultsItemContent     : React.PropTypes.object,
+	liResultsItemContentItem : React.PropTypes.object
+};
+
 Search.childContextTypes = {
+	withCompose              : React.PropTypes.func,
 	backDropShow             : React.PropTypes.bool,
 	divInput                 : React.PropTypes.object,
 	input                    : React.PropTypes.object,
@@ -96,6 +124,7 @@ Search.childContextTypes = {
 };
 
 Search.defaultProps = {
+	withCompose              : null,
 	withBackdrop             : false,
 	divInput                 : style.divInput,
 	input                    : style.input,
