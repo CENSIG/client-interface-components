@@ -134,12 +134,14 @@ Explorer.propTypes = {
 	actionClickSup: React.PropTypes.func,
 	actionClickSub: React.PropTypes.func,
 	withCompose: React.PropTypes.func,
-	withSpin: React.PropTypes.func,
+	withSpin: React.PropTypes.object,
 	displaySpin: React.PropTypes.bool
 },
 
 Explorer.defaultProps = {
 	withCompose             : null,
+	withSpin                : null,
+	displaySpin             : false,
 	buttonMaterial          : false,
 	styleButton             : style.button,
 	styleView               : style.taxonView,
