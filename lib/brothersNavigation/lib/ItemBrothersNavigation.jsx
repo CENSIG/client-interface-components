@@ -1,7 +1,5 @@
 import React from "react";
 
-import style from "../style";
-
 /**
  * A component which represent item of brothers
  * navigation
@@ -35,9 +33,10 @@ class ItemBrothersNavigation extends React.Component
 	}
 
 	render() {
+		let props = this.props;
 		return (
-			<li style={style.liStyle}>
-				{this._item(this.props)}
+			<li style={props.liStyle}>
+				{this._item(props)}
 			</li>
 		)	
 	}
