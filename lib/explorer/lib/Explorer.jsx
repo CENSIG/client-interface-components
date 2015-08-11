@@ -27,7 +27,7 @@ class Explorer extends React.Component
 			||
 			nextState.displaying !== this.state.displaying
 			||
-			nextProps.displaySpin !== this.props.displaySpin;
+			nextProps.displaySpin !== this.props.displaySpin
 		);
 	}
 
