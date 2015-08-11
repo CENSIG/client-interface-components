@@ -17,13 +17,29 @@ var notResults = null;
 
 export default function run() {
 
+	class FakeSpin extends React.Component
+	{
+		constructor(props) {
+			super(props);	
+		}	
+
+		render() {
+			return (
+				<div style={{position: "relative", float:"right", bottom: 39}}>
+					<p>le spin est là !!!</p>
+				</div>
+			);	
+		}
+	}
+
 	class BasicSearch extends React.Component
 	{
 		constructor(props) {
 			super(props);	
 			this.state = {
 				results: results,
-				notResults: notResults
+				notResults: notResults,
+				displaySpin: false
 			};
 		}	
 
@@ -36,7 +52,10 @@ export default function run() {
 				this.setState({ notResults: q });
 			}
 
-			this.setState({ results: Immutable.fromJS(r) });
+			this.setState({ 
+				results: Immutable.fromJS(r),
+				displaySpin: false
+			});
 		}
 
 		actionReset() {
