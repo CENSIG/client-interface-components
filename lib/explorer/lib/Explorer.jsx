@@ -118,6 +118,8 @@ class Explorer extends React.Component
 					firstChilds={props.firstChilds}
 					parents={props.parents}
 					withCompose={props.withCompose}
+					withSpin={props.withSpin}
+					displaySpin={props.displaySpin}
 				/>
 			</div>
 		);
@@ -129,7 +131,9 @@ Explorer.propTypes = {
 	parents: React.PropTypes.object.isRequired,
 	actionClickSup: React.PropTypes.func,
 	actionClickSub: React.PropTypes.func,
-	withCompose: React.PropTypes.func
+	withCompose: React.PropTypes.func,
+	withSpin: React.PropTypes.func,
+	displaySpin: React.PropTypes.bool
 },
 
 Explorer.defaultProps = {
