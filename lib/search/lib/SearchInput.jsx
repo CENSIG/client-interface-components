@@ -13,18 +13,20 @@ class SearchInput extends React.Component
 	}
 
 	render() {
+		let props = this.props;
+		let spin = (props.displaySpin) ? props.withSpin : null;
 		return (
 			<div style={this.context.divInput}>
 				<input 
 					ref="inputSearch"
 					style={this.context.input} 
 					type="search" 
-					placeholder={this.props.placeholder} 
-					value={this.state.value}
-					onKeyUp={this.props._onKeyUp} 
-					onFocus={this.props._onFocus}
-					onBlur={this.props._onBlur}
+					placeholder={props.placeholder} 
+					onKeyUp={props._onKeyUp} 
+					onFocus={props._onFocus}
+					onBlur={props._onBlur}
 				/>
+				{spin}
 			</div>
 		);	
 	}
