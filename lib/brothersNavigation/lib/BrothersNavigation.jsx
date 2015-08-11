@@ -27,7 +27,7 @@ class BrothersNavigation extends React.Component
 		let Compose = composeItemBrothers(this.props.withCompose);
 		return items.map((item, idx) => {
 			return (
-				<Compose key={idx}>
+				<Compose key={idx} id={item.get("cdnom")}>
 					{this._buildItem(item)}
 				</Compose>
 			);
