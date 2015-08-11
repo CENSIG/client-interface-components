@@ -63,15 +63,20 @@ class ExplorerView extends React.Component
 	render () {
 		let props = this.props;
 		let styleView = props.styleView;
+		let res = this._getFirstChilds(props.withCompose);
 
 		if (!props.displaying) {
 			styleView = style.taxonViewHidden;
-		} 
+		} else {
+			if (props.displaySpin) {
+				res = props.withSpin;	
+			}	
+		}
 
 		return (
 			<div style={styleView}>
 				<Ariane	parents={props.parents} arianeCallback={this.context.arianeCallback}/>
-				{this._getFirstChilds(props.withCompose)}
+				{res}
 			</div>	
 		)
 	}
