@@ -8,6 +8,7 @@ class MyItemBrothers extends React.Component
 
 	render() {
 		let props = this.props;
+		console.log(props.id);
 		return (
 			<strong>
 				{props.children}

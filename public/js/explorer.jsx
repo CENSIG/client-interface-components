@@ -7,6 +7,19 @@ import MyExplorerView from "../../tests/components/MyExplorerView";
 import {dataExplorerComponents, dataParentsComponents} from "../../tests/data";
 
 export default function run() {
+
+	class FakeSpin extends React.Component
+	{
+		constructor(props) {
+			super(props);	
+		}	
+
+		render() {
+			return (
+				<p>Hi i'm fake spin!!!</p>
+			);	
+		}
+	}
 	
 	React.render(
 		<Explorer 
@@ -61,4 +74,17 @@ export default function run() {
 		/>,
 		document.getElementById("explorerMaterial")
 	);
+
+	React.render(
+		<Explorer	
+			firstChilds={Immutable.fromJS(dataExplorerComponents)}
+			parents={Immutable.fromJS(dataParentsComponents)}
+			withCompose={MyExplorerView}
+			buttonMaterial={true}
+			displaySpin={true}
+			withSpin={<FakeSpin />}
+		/>,
+		document.getElementById("explorerSpin")
+	);
+
 }
