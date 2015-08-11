@@ -50,8 +50,12 @@ class Search extends React.Component
 			props.actionSearch(q);
 		}
 
-		if (q.length == 0) {
-			props.actionReset();
+		if (q.length <= 3 && props.pendingRequest) {
+			props.actionAbort(props.pendingRequest);	
+		}
+
+		if (q.length === 0) {
+			props.actionReset();	
 		}
 	}
 
@@ -66,6 +70,8 @@ class Search extends React.Component
 					_onKeyUp={this._handleKeyUp.bind(this)} 
 					_onFocus={props._onFocus}
 					_onBlur={props._onBlur}
+					withSpin={props.withSpin}
+					displaySpin={props.displaySpin}
 				/>
 				<SearchResult 
 					header={props.header}
@@ -103,6 +109,8 @@ Search.propTypes = {
 	_onBlur                  : React.PropTypes.func,
 	withBackdrop             : React.PropTypes.bool,
 	withCompose              : React.PropTypes.func,
+	withSpin                 : React.PropTypes.object,
+	displaySpin              : React.PropTypes.bool,
 	backDropShow             : React.PropTypes.bool,
 	divInput                 : React.PropTypes.object,
 	input                    : React.PropTypes.object,
@@ -125,6 +133,8 @@ Search.childContextTypes = {
 
 Search.defaultProps = {
 	withCompose              : null,
+	withSpin                 : null,
+	displaySpin              : false,
 	withBackdrop             : false,
 	divInput                 : style.divInput,
 	input                    : style.input,
