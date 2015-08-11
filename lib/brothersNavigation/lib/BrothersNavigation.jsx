@@ -19,16 +19,24 @@ class BrothersNavigation extends React.Component
 		return nextProps.brothers !== this.props.brothers;	
 	}
 
+	_buildItem(item, key) {
+		return <ItemBrothersNavigation key={key} {...item} />;
+	}
+
 	_renderWithCompose(items) {
 		let Compose = composeItemBrothers(this.props.withCompose);
 		return items.map((item, idx) => {
-			return <Compose key={idx} {...item} />
+			return (
+				<Compose key={idx}>
+					{this._buildItem(item)}
+				</Compose>
+			);
 		});
 	}
 
 	_renderDefault(items) {
 		return items.map((item, idx) => {
-			return <ItemBrothersNavigation key={idx} {...item} />	
+			return this._buildItem(item, idx); 
 		});
 	}
 
