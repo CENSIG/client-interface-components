@@ -14,12 +14,9 @@ class Search extends React.Component
 		super(props, context);
 	}
 
-	shouldComponentUpdate(nextProps) {
-		if (nextProps.results.size === 0) {
-			return true;	
-		}
-		return nextProps.results !== this.props.results;	
-	}
+	/*shouldComponentUpdate(nextProps) {
+		return nextProps !== this.props;
+	}*/
 
 	getChildContext() {
 		let props = this.props;
