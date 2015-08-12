@@ -19,7 +19,7 @@ var config = {
 			{
 				test: /\.jsx?$/, 
 				exclude: /node_modules/, 
-				loader: "jsx-loader!babel-loader?stage=1"
+				loader: "jsx-loader!babel-loader?stage=0"
 			}	
 		]	
 	},
