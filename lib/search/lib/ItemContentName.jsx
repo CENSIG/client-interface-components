@@ -1,6 +1,5 @@
 import React from "react";
-
-//import style from "../style";
+import shouldPureComponentUpdate from "react-pure-render/function";
 
 /**
  * Class which represent name of taxon
@@ -11,6 +10,8 @@ class ItemContentName extends React.Component
 	constructor(props) {
 		super(props);	
 	}
+
+	shouldComponentUpdate = shouldPureComponentUpdate
 
 	render() {
 		var name = this.props.children;

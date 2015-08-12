@@ -1,4 +1,5 @@
 import React from "react";
+import shouldPureComponentUpdate from "react-pure-render/function";
 import Radium from "radium";
 import ButtonExplorer from "./ButtonExplorer";
 import ExplorerView from "./ExplorerView";
@@ -19,17 +20,7 @@ class Explorer extends React.Component
 		}
 	}
 
-	shouldComponentUpdate(nextProps, nextState) {
-		return (
-			nextProps.firstChilds !== this.props.firstChilds
-			||
-			nextProps.parents !== this.props.parents
-			||
-			nextState.displaying !== this.state.displaying
-			||
-			nextProps.displaySpin !== this.props.displaySpin
-		);
-	}
+	shouldComponentUpdate = shouldPureComponentUpdate
 
 	getChildContext() {
 		return {

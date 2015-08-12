@@ -1,4 +1,5 @@
 import React from "react";
+import shouldPureComponentUpdate from "react-pure-render/function";
 import Radium from "radium";
 import ItemBrothersNavigation from "./ItemBrothersNavigation";
 
@@ -15,9 +16,7 @@ class BrothersNavigation extends React.Component
 		super(props);	
 	}
 
-	shouldComponentUpdate(nextProps) {
-		return nextProps.brothers !== this.props.brothers;	
-	}
+	shouldComponentUpdate = shouldPureComponentUpdate
 
 	_buildItem(item, key) {
 		return <ItemBrothersNavigation key={key} {...item} />;

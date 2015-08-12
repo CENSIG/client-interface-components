@@ -1,4 +1,5 @@
 import React from "react";
+import shouldPureComponentUpdate from "react-pure-render/function";
 
 /**
  * A component which represent item of brothers
@@ -11,9 +12,7 @@ class ItemBrothersNavigation extends React.Component
 		super(props);	
 	}
 
-	shouldComponentUpdate(nextProps) {
-		return nextProps.children !== this.props.children;	
-	}
+	shouldComponentUpdate = shouldPureComponentUpdate
 
 	_item(props) {
 		let after = props.right 

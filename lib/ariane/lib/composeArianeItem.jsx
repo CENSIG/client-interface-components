@@ -1,4 +1,5 @@
 import React from "react";
+import shouldPureComponentUpdate from "react-pure-render/function";
 
 export default function composeArianeItem(Component) {
 	class Compose extends React.Component
@@ -6,6 +7,8 @@ export default function composeArianeItem(Component) {
 		constructor(props) {
 			super(props);	
 		}	
+
+		shouldComponentUpdate = shouldPureComponentUpdate
 
 		render() {
 			let props = this.props;

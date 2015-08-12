@@ -3,6 +3,7 @@ import Radium from "radium";
 import {Ariane} from "../../ariane";
 import ButtonExplorerView from "./ButtonExplorerView";
 import composeExplorerChildsView from "./composeExplorerChildsView";
+import shouldPureComponentUpdate from "react-pure-render/function";
 
 import style from "../style";
 
@@ -15,6 +16,8 @@ class ExplorerView extends React.Component
 	constructor(props) {
 		super(props);	
 	}
+
+	shouldComponentUpdate = shouldPureComponentUpdate
 
 	_getDefaultFirstChilds() {
 		let props = this.props;

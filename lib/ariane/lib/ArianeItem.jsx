@@ -1,4 +1,5 @@
 import React from "react";
+import shouldPureComponentUpdate from "react-pure-render/function";
 import Radium from "radium";
 import {arrow} from "../style";
 
@@ -11,6 +12,8 @@ class ArianeItem extends React.Component
 	constructor(props) {
 		super(props);	
 	}
+
+	shouldComponentUpdate = shouldPureComponentUpdate
 
 	/**
 	 * Is last item ?

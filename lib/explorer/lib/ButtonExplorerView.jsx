@@ -1,4 +1,5 @@
 import React from "react";
+import shouldPureComponentUpdate from "react-pure-render/function";
 
 /**
  * Button explore sub taxon.
@@ -9,6 +10,8 @@ class ButtonExplorerView extends React.Component
 	constructor(props) {
 		super(props);	
 	}
+
+	shouldComponentUpdate = shouldPureComponentUpdate
 
 	render() {
 		let {cdnom, children} = this.props;

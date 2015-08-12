@@ -1,4 +1,5 @@
 import React from "react";
+import shouldPureComponentUpdate from "react-pure-render/function";
 import Radium from "radium";
 import ArianeItem from "./ArianeItem";
 import {base} from "../style";
@@ -14,9 +15,7 @@ class Ariane extends React.Component
 		super(props);
 	}
 
-	shouldComponentUpdate(nextProps) {
-		return nextProps.parents !== this.props.parents;	
-	}
+	shouldComponentUpdate = shouldPureComponentUpdate
 
 	getChildContext() {
 		return {
