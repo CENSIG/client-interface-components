@@ -1,6 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import style from "../style";
+import shouldPureComponentUpdate from "react-pure-render/function";
 
 /**
  * Class which represent search input
@@ -11,6 +12,8 @@ class SearchInput extends React.Component
 	constructor(props) {
 		super(props);	
 	}
+
+	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
 		let props = this.props;

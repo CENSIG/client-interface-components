@@ -3,6 +3,7 @@ import Radium from "radium";
 import HeaderSearchResult from "./HeaderSearchResult";
 import SearchResultItem from "./SearchResultItem";
 
+import shouldPureComponentUpdate from "react-pure-render/function";
 //import style from "../style";
 
 /**
@@ -15,9 +16,7 @@ class SearchResult extends React.Component
 		super(props);	
 	}
 
-	shouldComponentUpdate(nextProps) {
-		return this.props !== nextProps;	
-	}
+	shouldComponentUpdate = shouldPureComponentUpdate
 
 	render() {
 		var results = this.props.results;

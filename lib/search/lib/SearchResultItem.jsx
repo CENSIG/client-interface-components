@@ -2,6 +2,7 @@ import React from "react";
 import SearchResultItemContent from "./SearchResultItemContent";
 import composeResultItemContent from "./composeResultItemContent";
 
+import shouldPureComponentUpdate from "react-pure-render/function";
 /**
  * Class which represent an result item
  * @author Jean BOUDET
@@ -12,9 +13,7 @@ class SearchResultItem extends React.Component
 		super(props);	
 	}
 
-	shouldComponentUpdate(nextProps) {
-		return nextProps.content.get("cdnom") !== this.props.content.get("cdnom");
-	}
+	shouldComponentUpdate = shouldPureComponentUpdate
 
 	_renderWithCompose(compose) {
 		let Compose = composeResultItemContent(compose);

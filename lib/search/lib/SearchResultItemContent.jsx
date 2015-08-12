@@ -1,6 +1,7 @@
 import React from "react";
 import ItemContentName from "./ItemContentName";
 
+import shouldPureComponentUpdate from "react-pure-render/function";
 //import style from "../style";
 
 /**
@@ -12,6 +13,8 @@ class SearchResultItemContent extends React.Component
 	constructor(props) {
 		super(props);	
 	}
+
+	shouldComponentUpdate = shouldPureComponentUpdate
 
 	render() {
 		var data = this.props.children;
