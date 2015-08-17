@@ -30,9 +30,10 @@ class ArianeItem extends React.Component
 	 * Create item 
 	 */
 	_createItem() {
+		let context = this.context;
 		let props = this.props;
 		return (
-			<span data-cdnom={props.cdnom} onClick={this.context.arianeCallback}>
+			<span style={context.styleArianeItem} data-cdnom={props.cdnom} onClick={context.arianeCallback}>
 				<span>{this._isLast()}</span>
 				<span style={arrow}></span>
 			</span>
@@ -49,7 +50,8 @@ ArianeItem.defaultProps = {
 };
 
 ArianeItem.contextTypes = {
-	arianeCallback: React.PropTypes.func
+	arianeCallback: React.PropTypes.func,
+	styleArianeItem: React.PropTypes.object
 };
 
 ArianeItem = Radium(ArianeItem);
