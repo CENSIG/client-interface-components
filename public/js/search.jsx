@@ -39,7 +39,8 @@ export default function run() {
 			this.state = {
 				results: results,
 				notResults: notResults,
-				displaySpin: false
+				displaySpin: false,
+				backDropShow: false
 			};
 		}	
 
@@ -58,6 +59,14 @@ export default function run() {
 			});
 		}
 
+		_onFocus() {
+			this.setState({backDropShow: true});
+		}
+
+		_onBlur() {
+			this.setState({backDropShow: false});
+		}
+
 		actionReset() {
 			this.setState({
 				results: Immutable.List(),
@@ -68,15 +77,20 @@ export default function run() {
 		render() {
 			return (
 				<Search 
-					label="papillons"
+					divInputActive={this.props.divInputActive}
+					divContainer={this.props.divContainer}
+					backDropShow={this.state.backDropShow}
 					actionSearch={this.actionSearch.bind(this)}
 					actionReset={this.actionReset.bind(this)}
+					_onFocus={this._onFocus.bind(this)}
+					_onBlur={this._onBlur.bind(this)}
 					results={this.state.results}
 					notResults={this.state.notResults}
 					header={[
 						"Taxon référent",
 						"Nom"
 					]}
+					withBackdrop={true}
 					withCompose={this.props.withCompose}
 				/>
 			);	
@@ -91,5 +105,19 @@ export default function run() {
 	React.render(
 		<BasicSearch withCompose={MyResultItemContent} />,
 		document.getElementById("searchCompose")
+	);
+
+	React.render(
+		<BasicSearch 
+			withCompose={MyResultItemContent} 
+			divContainer={{width: "100%"}}
+			divInputActive={
+				{
+					width: 300,
+					boxShadow: "0 2px 5px rgba(0, 0, 0, 0.26)"
+				}
+			}
+		/>,
+		document.getElementById("searchStyleContainer")
 	);
 }
