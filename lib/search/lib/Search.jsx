@@ -1,4 +1,5 @@
-import React						 from "react";
+import React from "react";
+import Radium from "radium";
 import SearchInput from "./SearchInput";
 import SearchResult from "./SearchResult";
 
@@ -50,10 +51,13 @@ class Search extends React.Component
 
 	render() {
 		let props = this.props;
-
 		let placeholder = "Recherchez un taxon"
+		
+		let divBaseStyle = (props.backDropShow)
+			? props.divBase
+			: {};
 		let search = (
-			<div style={props.backDropShow ? props.divBase : null}>
+			<div style={divBaseStyle}>
 				<SearchInput 
 					placeholder={placeholder} 
 					_onKeyUp={this._handleKeyUp.bind(this)} 
@@ -127,7 +131,7 @@ Search.defaultProps = {
 	withSpin                 : null,
 	displaySpin              : false,
 	withBackdrop             : false,
-	divContainer             : null,
+	divContainer             : {},
 	divBase                  : style.divBase,
 	divInput                 : style.divInput,
 	divInputActive           : style.divInputActive,
@@ -138,4 +142,4 @@ Search.defaultProps = {
 	liResultsItemContentItem : style.liResultsItemContentItem
 };
 
-export default Search;
+export default Radium(Search);
