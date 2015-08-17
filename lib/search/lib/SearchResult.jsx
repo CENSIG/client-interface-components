@@ -44,6 +44,4 @@ SearchResult.contextTypes = {
 	ulResults: React.PropTypes.object
 };
 
-//SearchResult = Radium(SearchResult);
-
-export default SearchResult;
+export default Radium(SearchResult);
