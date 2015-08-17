@@ -18,8 +18,10 @@ class Ariane extends React.Component
 	shouldComponentUpdate = shouldPureComponentUpdate
 
 	getChildContext() {
+		let props = this.props;
 		return {
-			arianeCallback: this.props.arianeCallback	
+			arianeCallback: props.arianeCallback,
+			styleArianeItem: props.styleArianeItem
 		}	
 	}
 
@@ -77,13 +79,13 @@ class Ariane extends React.Component
 	}
 
 	render() {
-		let {withCompose} = this.props;
+		let {withCompose, ...props} = this.props;
 		let items = (withCompose === null) 
 			? this._createDefaultItems()
 			: this._createComposeItems(withCompose);
 
 		return (
-			<div style={base}>
+			<div style={props.styleDivBase}>
 				{items}	
 			</div>
 		);	
@@ -91,20 +93,22 @@ class Ariane extends React.Component
 }
 
 Ariane.propTypes = {
-	parents: React.PropTypes.object.isRequired,
 	arianeCallback: React.PropTypes.func,
+	styleDivBase: React.PropTypes.object,
+	parents: React.PropTypes.object.isRequired,
+	styleArianeItem: React.PropTypes.object,
 	withCompose: React.PropTypes.func,
-	style: React.PropTypes.object
 };
 
 Ariane.defaultProps = {
 	arianeCallback: null,
-	style: base,
+	styleDivBase: base,
 	withCompose: null
 };
 
 Ariane.childContextTypes = {
-	arianeCallback: React.PropTypes.func
+	arianeCallback: React.PropTypes.func,
+	styleArianeItem: React.PropTypes.object
 };
 
 Ariane = Radium(Ariane);
