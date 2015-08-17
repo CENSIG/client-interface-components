@@ -18,7 +18,7 @@ class Search extends React.Component
 		let props = this.props;
 
 		let divInputStyle = (props.backDropShow)
-			? style.divInputActive
+			? props.divInputActive
 			: props.divInput;
 
 		return {
@@ -43,10 +43,6 @@ class Search extends React.Component
 			props.actionSearch(q);
 		}
 
-		if (q.length <= 3 && props.pendingRequest) {
-			props.actionAbort(props.pendingRequest);	
-		}
-
 		if (q.length === 0) {
 			props.actionReset();	
 		}
@@ -57,7 +53,7 @@ class Search extends React.Component
 
 		let placeholder = "Recherchez un taxon"
 		let search = (
-			<div style={props.backDropShow ? style.divBase : null}>
+			<div style={props.backDropShow ? props.divBase : null}>
 				<SearchInput 
 					placeholder={placeholder} 
 					_onKeyUp={this._handleKeyUp.bind(this)} 
@@ -81,7 +77,7 @@ class Search extends React.Component
 	_renderWithBackdrop(search) {
 		let props = this.props;
 		return (
-			<div>
+			<div style={props.divContainer}>
 				<div 
 					style={props.backDropShow ? style.backDrop : style.backDropHidden}
 				></div>
@@ -97,7 +93,6 @@ Search.propTypes = {
 	header                   : React.PropTypes.array.isRequired,
 	actionSearch             : React.PropTypes.func.isRequired,
 	actionReset              : React.PropTypes.func.isRequired,
-	actionAbort              : React.PropTypes.func,
 	_onFocus                 : React.PropTypes.func,
 	_onBlur                  : React.PropTypes.func,
 	withBackdrop             : React.PropTypes.bool,
@@ -105,7 +100,10 @@ Search.propTypes = {
 	withSpin                 : React.PropTypes.object,
 	displaySpin              : React.PropTypes.bool,
 	backDropShow             : React.PropTypes.bool,
+	divBase                  : React.PropTypes.object,
+	divContainer             : React.PropTypes.object,
 	divInput                 : React.PropTypes.object,
+	divInputActive           : React.PropTypes.object,
 	input                    : React.PropTypes.object,
 	ulResults                : React.PropTypes.object,
 	liResultsItem            : React.PropTypes.object,
@@ -129,7 +127,10 @@ Search.defaultProps = {
 	withSpin                 : null,
 	displaySpin              : false,
 	withBackdrop             : false,
+	divContainer             : null,
+	divBase                  : style.divBase,
 	divInput                 : style.divInput,
+	divInputActive           : style.divInputActive,
 	input                    : style.input,
 	ulResults                : style.ulResults,
 	liResultsItem            : style.liResultsItem,
