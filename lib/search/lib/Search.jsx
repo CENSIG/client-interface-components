@@ -81,7 +81,7 @@ class Search extends React.Component
 	_renderWithBackdrop(search) {
 		let props = this.props;
 		return (
-			<div style={props.divContainer}>
+			<div style={[props.backDropShow && props.divContainer]}>
 				<div 
 					style={props.backDropShow ? style.backDrop : style.backDropHidden}
 				></div>
